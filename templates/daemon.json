@@ -1,0 +1,8 @@
+{
+  "hosts": ["{{docker_daemon_hosts | join('", "')}}"],
+  "tls": {{docker_daemon_tls}},
+  "tlscert": "{{docker_daemon_tlscert}}",
+  "tlskey": "{{docker_daemon_tlskey}}",
+  {{docker_daemon_extra_options}}
+  "debug": {{docker_daemon_debug}}
+}

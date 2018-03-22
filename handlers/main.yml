@@ -1,0 +1,14 @@
+---
+- name: Restart Docker service
+  service:
+      name: "{{docker_service_name}}"
+      state: restarted
+
+- name: Reload Docker service
+  service:
+      name: "{{docker_service_name}}"
+      state: reloaded
+
+- name: Reload SystemD
+  systemd:
+    daemon_reload: yes

@@ -1,0 +1,15 @@
+---
+docker_service_name: docker
+docker_service_enabled: yes
+docker_service_state: started
+
+# daemon.json configuration
+docker_daemon_debug: "false"
+docker_daemon_hosts:
+- "unix:///var/run/docker.sock"
+# - "tcp://0.0.0.0:2376"
+# - "tcp://{{ansible_default_ipv4.address}}:2376"
+docker_daemon_tls: "false"
+docker_daemon_tlscert: "/var/docker/server.pem"
+docker_daemon_tlskey: "/var/docker/serverkey.pem"
+docker_daemon_extra_options: ""

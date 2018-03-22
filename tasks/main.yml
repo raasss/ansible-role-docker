@@ -1,0 +1,33 @@
+---
+- name: Show distribution name and major version
+  debug:
+    msg: "{{ansible_distribution}}-{{ansible_distribution_major_version}}"
+
+- name: Include OS-specific variables
+  include_vars: "{{ansible_distribution}}-{{ansible_distribution_major_version}}.yml"
+
+- name: Include OS-specific tasks
+  include_tasks: "{{ansible_distribution}}-{{ansible_distribution_major_version}}.yml"
+
+- name: Create daemon configuration directory
+  file:
+      group: root
+      mode: 0700
+      owner: root
+      path: "/etc/docker"
+      state: directory
+
+- name: Deploy daemon configuration
+  template:
+    dest: /etc/docker/daemon.json
+    group: root
+    mode: 0600
+    owner: root
+    src: daemon.json
+  notify: Restart Docker service
+
+- name: Manage service
+  service:
+    name: "{{docker_service_name}}"
+    enabled: "{{docker_service_enabled}}"
+    state: "{{docker_service_state}}"
